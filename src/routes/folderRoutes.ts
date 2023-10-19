@@ -1,11 +1,15 @@
-import { Router } from "express";
-import FolderController from "../controllers/folderController";
+// src/routes/folderRoutes.ts
+import express from 'express';
+import {
+  getFolders,
+  createFolder,
+  deleteFolder,
+} from '../controllers/folderController';
 
-const router = Router();
-const folderController = new FolderController();
+const router = express.Router();
 
-router.get("/", folderController.getFolders);
-router.post("/", folderController.createFolder);
-router.delete("/:id", folderController.deleteFolder);
+router.get('/', getFolders);
+router.post('/', createFolder);
+router.delete('/:id', deleteFolder);
 
 export default router;

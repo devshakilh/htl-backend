@@ -1,14 +1,34 @@
-import mongoose, { Schema, Document } from "mongoose";
+// import mongoose, { Schema, Document } from "mongoose";
+
+// export interface IFolder extends Document {
+
+//     name: string;
+//     parent: string | null;
+// }
+
+// const folderSchema: Schema = new Schema({
+//     name: { type: String, required: true },
+//     parent: { type: String, default: null },
+// });
+
+// export default mongoose.model<IFolder>("Folder", folderSchema);
+
+
+
+
+// src/models/Folder.ts
+import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IFolder extends Document {
-
     name: string;
-    parent: string | null;
+    subfolders: IFolder[];
 }
 
-const folderSchema: Schema = new Schema({
+const folderSchema = new Schema<IFolder>({
     name: { type: String, required: true },
-    parent: { type: String, default: null },
+    subfolders: [{ type: Schema.Types.ObjectId, ref: 'Folder' }],
 });
 
-export default mongoose.model<IFolder>("Folder", folderSchema);
+const Folder = mongoose.model<IFolder>('Folder', folderSchema);
+
+export default Folder;
